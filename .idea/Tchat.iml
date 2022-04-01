@@ -40,6 +40,8 @@
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/deprecation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/app/vendor/symfony/cache-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/app/var" />
+      <excludeFolder url="file://$MODULE_DIR$/app/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

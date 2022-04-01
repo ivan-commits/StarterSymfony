@@ -50,4 +50,4 @@
 # Embedded web-server pid file
 /app/.web-server-pid
 
-.idea
+.idea/*
