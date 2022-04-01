@@ -59,6 +59,14 @@
       <path value="$PROJECT_DIR$/app/vendor/doctrine/migrations" />
       <path value="$PROJECT_DIR$/app/vendor/doctrine/doctrine-migrations-bundle" />
       <path value="$PROJECT_DIR$/app/vendor/friendsofphp/proxy-manager-lts" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/security-csrf" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/password-hasher" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/app/vendor/symfony/security-guard" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
