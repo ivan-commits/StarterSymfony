@@ -13,6 +13,6 @@ class SecurityController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('security/');
+        return $this->render('security/login.html.twig');
     }
 }
