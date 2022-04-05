@@ -14,19 +14,38 @@ class UserCheckerCustom implements UserCheckerInterface
     public function checkPreAuth(UserInterface $user)
     {
         $this->checkAuth($user);
+        $this->checkIsBanned($user);
+        $this->checkIsVerified($user);
     }
 
     public function checkPostAuth(UserInterface $user)
     {
         $this->checkAuth($user);
+        $this->checkIsBanned($user);
+        $this->checkIsVerified($user);
     }
 
     private function checkAuth(UserInterface $user){
         if(!$user instanceof User){
             return;
         }
+    }
+
+    private function checkIsBanned(UserInterface $user){
+        if(!$user instanceof User){
+            return;
+        }
         if($user->isBanned()){
-            throw new CustomUserMessageAuthenticationException('Pas authorisé');
+            throw new CustomUserMessageAuthenticationException('You are not verified!');
+        }
+    }
+
+    private function checkIsVerified(UserInterface $user){
+        if(!$user instanceof User){
+            return;
+        }
+        if(!$user->isVerified()){
+            throw new CustomUserMessageAuthenticationException('You are not verified!');
         }
     }
 }

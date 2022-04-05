@@ -7,7 +7,9 @@
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
+    {% if email_verified is not empty %}
+        <div class="alert alert-success">{{ email_verified }}</div>
+    {% endif %}
     {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -38,5 +40,8 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+    <a class="btn btn-lg btn-success" href="{{path('app_register')}}" class="btn">Sign up</a>
+
 </form>
+
 {% endblock %}
