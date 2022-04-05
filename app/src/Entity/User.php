@@ -35,6 +35,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean",options={"default":false})
+     */
+    private $banned;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,5 +128,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBanned(): bool
+    {
+        return $this->banned;
+    }
+
+    /**
+     * @param bool $banned
+     * @return User
+     */
+    public function setBanned(bool $banned): User
+    {
+        $this->banned = $banned;
+        return $this;
     }
 }
