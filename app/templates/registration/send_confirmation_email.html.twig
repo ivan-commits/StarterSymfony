@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Send Confirmation Email{% endblock %}
+
+{% block body %}
+    {% include 'common/_message_flash.html.twig' %}
+
+    <h1>Send confirmation email</h1>
+
+    {{ form_start(sendConfirmationEmail) }}
+
+    {{ form_row(sendConfirmationEmail.email) }}
+
+    {{ form_row(sendConfirmationEmail.password, {
+        label: 'Password'
+    }) }}
+
+    <button type="submit" class="btn btn-success">Send</button>
+    {{ form_end(sendConfirmationEmail) }}
+{% endblock %}
