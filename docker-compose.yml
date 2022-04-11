@@ -46,7 +46,7 @@ services:
         MYSQL_PASSWORD: secret
       networks:
         - nginx-php-mysql
-        -
+
   #php my admin
   php-myadmin:
       image: phpmyadmin
@@ -57,6 +57,7 @@ services:
       environment:
         PMA_PASSWORD: secret
         PMA_USER: root
+        PMA_HOST: mysql-container:3306
       networks:
         - nginx-php-mysql
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use App\Constant\SecurityConstant;
 use App\Entity\User;
@@ -83,7 +83,7 @@ class RegistrationController extends AbstractController
     {
         $user = $this->userRepository->find($request->query->get('id',''));
 
-        if (!$user) {
+        if (!$user || $user->isBanned() || $user->isVerified()) {
             throw $this->createNotFoundException();
         }
 

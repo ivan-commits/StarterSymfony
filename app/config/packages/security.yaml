@@ -9,17 +9,18 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        custom_provider_users_repository:
             entity:
                 class: App\Entity\User
-                property: email
+                #uncomment for use symfony user_provider
+                #property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: app_user_provider
+            provider: custom_provider_users_repository
             user_checker: App\Security\UserCheckerCustom
             custom_authenticator: App\Security\AppAuthenticator
             access_denied_handler: App\Security\AccessDeniedHandler
