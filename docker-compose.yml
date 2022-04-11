@@ -46,3 +46,17 @@ services:
         MYSQL_PASSWORD: secret
       networks:
         - nginx-php-mysql
+        -
+  #php my admin
+  php-myadmin:
+      image: phpmyadmin
+      container_name: padmin
+      ports:
+        - "8081:80"
+      restart: always
+      environment:
+        PMA_PASSWORD: secret
+        PMA_USER: root
+      networks:
+        - nginx-php-mysql
+
