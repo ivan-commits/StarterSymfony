@@ -3,18 +3,18 @@
 {% block title %}Send Confirmation Email{% endblock %}
 
 {% block body %}
-    {% include 'common/_message_flash.html.twig' %}
+    {% include 'shared/_message_flash.html.twig' %}
 
     <h1>Send confirmation email</h1>
 
-    {{ form_start(sendConfirmationEmail) }}
+    {{ form_start(resend_confirmation_email) }}
 
-    {{ form_row(sendConfirmationEmail.email) }}
+    {{ form_row(resend_confirmation_email.email) }}
 
-    {{ form_row(sendConfirmationEmail.password, {
+    {{ form_row(resend_confirmation_email.password, {
         label: 'Password'
     }) }}
 
     <button type="submit" class="btn btn-success">Send</button>
-    {{ form_end(sendConfirmationEmail) }}
+    {{ form_end(resend_confirmation_email) }}
 {% endblock %}

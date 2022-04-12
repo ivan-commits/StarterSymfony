@@ -39,8 +39,6 @@ security:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/login, roles: PUBLIC_ACCESS }
          - { path: ^/register, roles: PUBLIC_ACCESS }
-         - { path: ^/verify/email, roles: PUBLIC_ACCESS }
-         - { path: ^/send/confirmation/email, roles: PUBLIC_ACCESS }
          - { path: ^/, roles: ROLE_USER }
 
 when@test:
