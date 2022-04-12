@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Form\SendConfirmationEmailType;
 use App\Repository\UserRepository;
-use App\Security\EmailVerifier;
 use App\Service\SecurityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -15,19 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private $emailVerifier;
     private $entityManager;
     private $userRepository;
 
-    public function __construct(EmailVerifier $emailVerifier,EntityManagerInterface $entityManager, UserRepository $userRepository)
+    public function __construct(EntityManagerInterface $entityManager, UserRepository $userRepository)
     {
-        $this->emailVerifier = $emailVerifier;
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
     }
@@ -35,40 +31,16 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request,SecurityService $securityService): Response
     {
-        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, new User());
 
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+        if($request->isMethod('POST')){
+            $result = $securityService->register($request, $form);
 
-        if ($form->isSubmitted()) {
+            $this->addFlash($result->getData()['messageType'] ?? 'error',$result->getData()['messageFlash'] ?? 'error registration');
 
-            $formIsValid = $form->isValid();
-            $messageFlash = $formIsValid ? SecurityConstant::success_register : $form['email']->getErrors()->__toString() ?? SecurityConstant::error_register;
-            $messageType = $formIsValid ? 'success' : 'error';
-            $this->addFlash($messageType,$messageFlash);
-
-            if($formIsValid){
-                // encode the plain password
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('plainPassword')->getData()
-                    ));
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                // generate a signed url and email it to the user
-                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                    (new TemplatedEmail())
-                        ->from(new Address('registration@tchat.com', 'ivan'))
-                        ->to($user->getEmail())
-                        ->subject('Please Confirm your Email')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
-                );
-                return $this->redirectToRoute('app_login');
-            }
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute(!$result->hasError() ? 'app_login' : 'app_register');
         }
 
         return $this->render('registration/register.html.twig', [
