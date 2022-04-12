@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="tchat" exclude=".svn;.cvs;.idea;.DS_Store;.hg;*.hprof;*.pyc" autoUploadExternalChanges="true">
+  <component name="PublishConfigData" autoUpload="Always" serverName="tchat" createEmptyFolders="true" exclude=".svn;.cvs;.idea;.DS_Store;.hg;*.hprof;*.pyc" filePermissions="508" folderPermissions="511" autoUploadExternalChanges="true">
     <serverData>
       <paths name="tchat">
         <serverdata>

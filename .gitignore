@@ -1,48 +1,48 @@
 # Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
+app/cache/*
+app/logs/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
 # Email spool folder
-/app/spool/*
+app/spool/*
 
 # Cache, session files and logs (Symfony3)
-/app/var/cache/*
-/app/var/logs/*
-/app/var/sessions/*
-!/app/var/cache/.gitkeep
-!/app/var/logs/.gitkeep
-!/app/var/sessions/.gitkeep
+app/var/cache/*
+app/var/logs/*
+app/var/sessions/*
+!app/var/cache/.gitkeep
+!app/var/logs/.gitkeep
+!app/var/sessions/.gitkeep
 
 # Logs (Symfony4)
-/app/var/log/*
+app/var/log/*
 !app/var/log/.gitkeep
 
 # Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
+app/config/parameters.yml
+app/config/parameters.ini
 
 # Managed by Composer
-/app/bootstrap.php.cache
-/app/var/bootstrap.php.cache
-/app/bin/*
+app/bootstrap.php.cache
+app/var/bootstrap.php.cache
+app/bin/*
 #!/app/bin/console
 #!/app/bin/symfony_requirements
-/app/vendor/
+app/vendor/
 
 # Assets and user uploads
-/app/web/bundles/
-/app/web/uploads/
+app/web/bundles/
+app/web/uploads/
 
 # PHPUnit
-/app/phpunit.xml
+app/phpunit.xml
 
 # Build data
-/app/build/
+app/build/
 
 # Composer PHAR
-/app/composer.phar
+app/composer.phar
 
 # Backup entities generated with doctrine:generate:entities command
 **/app/Entity/*~
