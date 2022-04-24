@@ -48,16 +48,16 @@ services:
         - nginx-php-mysql
 
   #php my admin
-  php-myadmin:
-      image: phpmyadmin
-      container_name: padmin
-      ports:
-        - "8081:80"
-      restart: always
-      environment:
-        PMA_PASSWORD: secret
-        PMA_USER: root
-        PMA_HOST: mysql-container:3306
-      networks:
-        - nginx-php-mysql
+  #php-myadmin:
+  #    image: phpmyadmin
+  #    container_name: padmin
+  #    ports:
+  #      - "8081:80"
+  #    restart: always
+  #    environment:
+  #      PMA_PASSWORD: secret
+  #      PMA_USER: root
+  #      PMA_HOST: mysql-container:3306
+  #    networks:
+  #      - nginx-php-mysql
 
