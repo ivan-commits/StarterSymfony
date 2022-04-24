@@ -4,7 +4,7 @@ namespace App\Constant;
 
 class SecurityConstant
 {
-    /*** Registration ²s*/
+    /*** Registration*/
     public const success_send_confirmation_email = "Un email de vérification vient d'être envoyer sur votre boite mail.";
 
     public const error_send_confirmation_email = "Aucun compte trouvé, vérifié vos identifiants.";
