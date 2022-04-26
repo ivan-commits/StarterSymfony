@@ -12,5 +12,3 @@ import $ from 'jquery';
 import 'bootstrap';
 
 console.log(test(10));
-$('[data-toggle="popover"]').popover()
-
