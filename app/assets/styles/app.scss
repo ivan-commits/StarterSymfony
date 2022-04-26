@@ -1,0 +1,14 @@
+@import "helper/variables";
+@import '~bootstrap';
+@import '~font-awesome';
+@import './layout/footer';
+
+html{
+    height: 100%;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+    background: url("../images/abstract1.jpg") no-repeat center;
+}

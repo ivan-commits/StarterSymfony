@@ -1,8 +1,0 @@
-@import '~bootstrap';
-@import '~font-awesome';
-body {
-    height: 100vh;
-    background-size: 80%;
-    background: url("../images/abstract1.jpg") no-repeat center;
-    background-position-y: -10px;
-}

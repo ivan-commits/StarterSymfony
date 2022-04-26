@@ -6,8 +6,8 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import '../styles/app.css';
-import test from './test';
+import '../styles/app.scss';
+import test from './components/test';
 import $ from 'jquery';
 import 'bootstrap';
 

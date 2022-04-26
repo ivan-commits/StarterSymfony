@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('home', './assets/js/home.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')
@@ -58,7 +59,11 @@ Encore
     // })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
+    .copyFiles({
+        from : './assets/images',
+        to: 'images/[path][name].[hash:8].[ext]'
+    })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
