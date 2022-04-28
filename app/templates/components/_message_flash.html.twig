@@ -1,3 +1,7 @@
+{% if login_error %}
+    <div class="alert alert-danger">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</div>
+{% endif %}
+
 {% for error in app.flashes('error') %}
     <div class="alert alert-danger">{{ error }}</div>
 {% endfor %}

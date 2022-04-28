@@ -1,24 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Welcome{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
 
 {% block body %}
 
-{% if login_error %}
-<div class="alert alert-danger">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</div>
-{% endif %}
+    {% include 'components/_message_flash.html.twig' %}
 
-{% include 'components/_message_flash.html.twig' %}
+        <div class="row d-flex justify-content-center loginForm">
+            <div class="block-form col-8">
 
-<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                {{ form_start(loginForm) }}
+                {{ form_row(loginForm.email) }}
+                {{ form_row(loginForm.password) }}
 
-    {{ form_start(loginForm) }}
-    {{ form_row(loginForm.email) }}
-    {{ form_row(loginForm.password) }}
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-    {{ form_end(loginForm) }}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-    <a class="btn btn-lg btn-success" href="{{path('app_register')}}">Sign up</a>
-    <a href="{{path('app_resend_confirmation_email')}}">Send confirmation</a>
+                <div class="row d-flex justify-content-center">
+                    <button class="btn btn-sm btn-primary mx-1 my-2" type="submit" style="  background: #FA7268;">Sign in</button>
+                    <a class="btn btn-sm btn-success mx-1 my-2" href="{{path('app_register')}}" style="background: #C62368">Sign up</a>
+                </div>
+
+                <div class="row">
+                    <a class="col-12 text-center p-0" href="{{path('app_resend_confirmation_email')}}">
+                        <small class="text-muted">problème de connexion ?</small>
+                    </a>
+                </div>
+
+                {{ form_end(loginForm) }}
+
+            </div>
+
+        </div>
 {% endblock %}

@@ -1,14 +1,20 @@
 @import "helper/variables";
+@import "helper/border-helper";
 @import '~bootstrap';
 @import '~font-awesome';
 @import './layout/footer';
 
-html{
+.row,body{
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
     height: 100%;
+    min-height: 100%;
+    overflow: hidden;
 }
 
 body {
-    position: relative;
-    min-height: 100%;
-    background: url("../images/abstract1.jpg") no-repeat center;
+    //background: url("../images/circle-scatter-haikei.svg") no-repeat ;
 }
