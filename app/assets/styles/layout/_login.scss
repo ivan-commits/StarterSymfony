@@ -1,95 +1,51 @@
 @import "../helper/variables";
-.top{
-  height: 100%;
-  z-index: -1000;
 
+$breakpoints: (
+        "small": 0px,
+        "large": 900px,
+);
+@mixin media-min($_key) {
+  @media screen and (min-width: map-get($breakpoints, $_key)) {
+    &{ @content; }
+  }
 }
+
+
 .loginForm{
   position: relative;
   top: 50%;
-  transform: translateY(-80%);
+  transform: translateY(-50%);
   text-align: center;
+  border: 1px solid red;
+  display: flex;
+  margin: 0 auto;
 
-  .header{
-    min-height: 80px;
-  }
-
-  .block-form{
-    display: flex;
-    justify-content: center;
+  @include media-min("small") {
+    height: 600px;
+    width: 80%;
     flex-direction: column;
-    border-top: 1px solid $dark1;
-    border-bottom: 1px solid $dark1;
-    border-radius: 10px;
-    padding: 3% 1%;
-
-    .form-label{
-      display: block;
-      margin: 0;
-      padding: 0;
-      text-align: left;
+    .signIn{
+      flex: 3;
+      background: green;
     }
 
-    .form-control{
-      background: transparent;
-      border-top: none;
-      border-right: none;
-      border-left: none;
-      border-bottom: 1px solid $dark1;
-      border-radius: 0;
-      outline: none;
-    }
-
-    .form-control:focus{
-      outline:0 none;
-      box-shadow:none;
-    }
-
-    .row div{
-      padding: 0;
+    .signUp{
+      flex: 1;
+      background: red;
     }
   }
+  @include media-min("large") {
+    height: 400px;
+    flex-direction: row;
+    width: 800px;
+    .signIn{
+      flex: 4;
+      background: green;
+    }
 
-  .signup{
-    box-shadow: 3px 5px 4px $dark3;
-    //inset 3px 0px 4px $dark1;
-    border-right: 1px solid $dark1;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background: $orange;
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    .btn{
-      background: white;
-      color: $dark2;
+    .signUp{
+      flex: 2;
+      background: red;
     }
   }
-
-  .signin{
-    box-shadow: 4px 5px 4px $dark3;
-    border-left: 1px solid $dark1;
-    border-right: 1px solid $dark1;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    .btn{
-      background: $orange;
-      background-size: cover;
-    }
-  }
-
-  .btn{
-    border: 1px solid $dark1;
-    border-radius: 5px;
-    margin-top: 30px;
-  }
-}
-
-.bot{
-  background: url("../../images/login_wave.svg") no-repeat;
-  height: 120%;
-  background-size: cover;
-  background-position-y: -580px;
-  overflow: visible;
-  transform: translateY(-403px);
 }
