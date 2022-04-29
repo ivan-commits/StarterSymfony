@@ -19,6 +19,11 @@ class SecurityConstant
 
     public const error_email_already_verified = "Votre compte a déjà été vérifié.";
 
+    public const success_send_retrieve_password_email = "Un email de pour changer votre password vient d'être envoyé.";
+
+    public const success_retrieve_password = "Votre password a été modifier avec succès.";
+
+
     /*** Message Flash */
     public const flash_type_error = "error";
     public const flash_type_success = "success";

@@ -113,11 +113,10 @@ final class SecurityService extends BaseService
         if (!$this->result->hasError()) {
             try {
                 $this->emailVerifier->handleEmailConfirmation($request, $user);
-
-                $this->result->setError(false);
                 $messageFlash = SecurityConstant::success_register;
                 $messageType = SecurityConstant::flash_type_success;
             } catch (VerifyEmailExceptionInterface $exception) {
+                $this->result->setError(true);
                 $messageFlash = $exception->getReason() ?? SecurityConstant::error_unknown;
             }
         }
@@ -172,6 +171,89 @@ final class SecurityService extends BaseService
         return $this->result;
     }
 
+    public function forgotPassword(Request $request, FormInterface $form) : ResultService
+    {
+        $form->handleRequest($request);
+        $this->result->setError(!$form->isSubmitted());
+
+        $messageFlash = SecurityConstant::error_unknown;
+        $messageType = SecurityConstant::flash_type_error;
+
+        if (!$this->result->hasError()) {
+            $formIsValid = $form->isValid();
+            $this->result->setError(!$formIsValid);
+            if($this->result->hasError()){
+                $messageFlash = $form->getErrors(true)->__toString();
+            }
+        }
+
+        if(!$this->result->hasError()){
+            $email = $form->getData()['email'];
+            $user = $this->entityManager->getRepository(User::class)->findOneBy(['email'=>$email]);
+
+            if($user === null){
+                $messageFlash = SecurityConstant::error_user_unknown;
+                $this->result->setError(true);
+            }
+        }
+
+        if(!$this->result->hasError()){
+            try {
+                $this->sendEmailRetrievePassword($user);
+                $messageFlash = SecurityConstant::success_send_retrieve_password_email;
+                $messageType = SecurityConstant::flash_type_success;
+            }catch (\Throwable $throwable){
+                dd($throwable);
+                $this->result->setError(true);
+            }
+        }
+
+        $this->result->setData(compact('messageType','messageFlash'));
+
+        return $this->result;
+
+    }
+
+    public function retrievePassword(Request $request, FormInterface $form) : ResultService
+    {
+        $form->handleRequest($request);
+        $this->result->setError(!$form->isSubmitted());
+
+        $messageFlash = SecurityConstant::error_unknown;
+        $messageType = SecurityConstant::flash_type_error;
+
+        if (!$this->result->hasError()) {
+            $formIsValid = $form->isValid();
+            $this->result->setError(!$formIsValid);
+            if($this->result->hasError()){
+                $messageFlash = $form->getErrors(true)->__toString();
+            }
+        }
+
+        if(!$this->result->hasError()){
+            $user = $form->getData();
+            $this->result->setError(!$this->isFullyAuthorizedUser($user));
+        }
+
+
+        if (!$this->result->hasError()) {
+            $user->setPassword($this->passwordHashed->hashPassword($user,$user->getPassword()));
+            try {
+                $this->emailVerifier->handleEmailConfirmation($request, $user);
+                $messageFlash = SecurityConstant::success_retrieve_password;
+                $messageType = SecurityConstant::flash_type_success;
+            } catch (VerifyEmailExceptionInterface $exception) {
+                $this->result->setError(true);
+                $messageFlash = $exception->getReason() ?? SecurityConstant::error_unknown;
+            }
+
+        }
+
+        $this->result->setData(compact('messageType','messageFlash'));
+
+        return $this->result;
+    }
+
     /** Private function */
     private function sendEmailConfirmation($user) : void
     {
@@ -181,6 +263,17 @@ final class SecurityService extends BaseService
                 ->to($user->getEmail())
                 ->subject('Please Confirm your Email')
                 ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+    }
+
+    private function sendEmailRetrievePassword($user) : void
+    {
+        $this->emailVerifier->sendEmailConfirmation('app_retrieve_password', $user,
+            (new TemplatedEmail())
+                ->from(new Address('registration@tchat.com', 'ivan'))
+                ->to($user->getEmail())
+                ->subject('Retrieve Password')
+                ->htmlTemplate('registration/retrieve_password_email.html.twig')
         );
     }
 

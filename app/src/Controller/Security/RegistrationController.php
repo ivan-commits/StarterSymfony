@@ -4,18 +4,16 @@ namespace App\Controller\Security;
 
 use App\Constant\SecurityConstant;
 use App\Entity\User;
+use App\Form\ForgotPasswordType;
 use App\Form\RegistrationFormType;
 use App\Form\ResendConfirmationEmailType;
+use App\Form\RetrievePasswordType;
 use App\Repository\UserRepository;
 use App\Service\SecurityService;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -75,5 +73,52 @@ class RegistrationController extends AbstractController
         return $this->render('registration/resend_confirmation_email.html.twig', [
             'resend_confirmation_email' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/register/forgot/password", name="app_forgot_password")
+     */
+    public function forgotPassword(Request $request, SecurityService $securityService): Response
+    {
+        $form = $this->createForm(ForgotPasswordType::class);
+
+        if ($request->isMethod('POST')) {
+            $result = $securityService->forgotPassword($request, $form);
+
+            $this->addFlash(
+                $result->getData()['messageType'] ?? SecurityConstant::flash_type_error,
+                $result->getData()['messageFlash'] ?? SecurityConstant::error_unknown
+            );
+
+            return $this->redirectToRoute( 'app_login');
+        }
+
+        return $this->render('registration/forgot_password.html.twig', [
+            'forgot_password' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/register/retrieve/password", name="app_retrieve_password")
+     */
+    public function retrievePassword(Request $request, SecurityService $securityService, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($request->query->get('id',''));
+
+        if($user !== null){
+            $form = $this->createForm(RetrievePasswordType::class, $user);
+
+            if($request->isMethod('POST')){
+                $result = $securityService->retrievePassword($request, $form);
+                $this->addFlash($result->getData()['messageType'] ?? SecurityConstant::flash_type_error, $result->getData()['messageFlash'] ?? SecurityConstant::error_unknown);
+                return $this->redirectToRoute( 'app_login');
+            }
+            return $this->render('registration/retrieve_password.html.twig', [
+                'retrieve_password_form' => $form->createView(),
+            ]);
+        }
+
+        $this->addFlash(SecurityConstant::flash_type_error, SecurityConstant::error_user_unknown);
+        return $this->redirectToRoute('app_login');
     }
 }

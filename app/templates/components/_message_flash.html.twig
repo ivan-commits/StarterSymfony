@@ -1,4 +1,4 @@
-{% if login_error %}
+{% if login_error is defined and login_error is not null%}
     <div class="alert alert-danger">{{ login_error.messageKey|trans(login_error.messageData, 'security') }}</div>
 {% endif %}
 
