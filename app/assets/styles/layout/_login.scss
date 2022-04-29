@@ -1,23 +1,87 @@
-.loginForm{
-  width: 100%;
+@import "../helper/variables";
+.top{
   height: 100%;
-  text-align: center;
-  background: url("../../images/login_wave.svg") no-repeat bottom;
-}
+  z-index: -1000;
 
-.loginForm .block-form{
-  height: max-content;
+}
+.loginForm{
   position: relative;
   top: 50%;
   transform: translateY(-80%);
-  padding: 3% 15%;
+
+  .header{
+    min-height: 80px;
+    text-align: left;
+  }
+
+  .content{
+    text-align: center;
+  }
+
+  .block-form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-top: 1px solid $dark1;
+    border-bottom: 1px solid $dark1;
+    border-radius: 10px;
+    padding: 3% 1%;
+
+    .form-label{
+      display: block;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
+
+    .form-control{
+      background: transparent;
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      border-bottom: 1px solid $dark1;
+      border-radius: 0;
+      outline: none;
+    }
+
+    .form-control:focus{
+      outline:0 none;
+      box-shadow:none;
+    }
+
+    .row div{
+      padding: 0;
+    }
+  }
+
+  .signup{
+    border-right: 1px solid $dark1;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: url("../../images/blurry-gradient-haikei.svg") no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .signin{
+    border-left: 1px solid $dark1;
+    border-right: 1px solid $dark1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .btn{
+    border: transparent;
+    margin-top: 30px;
+  }
 }
 
-.loginForm input{
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.block-form .btn{
-  border: transparent;
+.bot{
+  background: url("../../images/login_wave.svg") no-repeat;
+  height: 120%;
+  background-size: cover;
+  background-position-y: -580px;
+  overflow: visible;
+  transform: translateY(-403px);
 }

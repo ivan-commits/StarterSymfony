@@ -17,7 +17,7 @@ class LoginFormType extends AbstractType
         $builder
             ->add('email',null,[
                 'attr' => ['autocomplete' => 'email'],
-                'label' =>'Email',
+                'label' =>'Email Address',
             ])
             ->add('password', PasswordType::class, [
                 'label'=> 'Password',
