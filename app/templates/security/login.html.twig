@@ -24,7 +24,7 @@
                             {{ form_row(loginForm.password) }}
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                             <div class="row d-flex justify-content-center">
-                                <button class="col-6 btn btn-sm btn-primary" type="submit" style="  background: #FA7268;">Sign in</button>
+                                <button class="col-6 btn btn-sm btn-primary" type="submit">Sign in</button>
                             </div>
                             {{ form_end(loginForm) }}
                         </div>
@@ -38,7 +38,7 @@
                         <div class="col-12">Lorem ipsum dolor sit amet, cosint tempora! Labore perferendis rerum sint!</div>
                     </div>
                     <div class="row d-flex justify-content-center">
-                        <a class="col-8 btn btn btn-sm btn-primary" href="{{path('app_register')}}" style="background: #C62368">Sign up</a>
+                        <a class="col-8 btn btn btn-sm btn-primary" href="{{path('app_register')}}">Sign up</a>
                     </div>
                 </div>
             </div>

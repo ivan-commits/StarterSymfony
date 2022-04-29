@@ -8,14 +8,10 @@
   position: relative;
   top: 50%;
   transform: translateY(-80%);
+  text-align: center;
 
   .header{
     min-height: 80px;
-    text-align: left;
-  }
-
-  .content{
-    text-align: center;
   }
 
   .block-form{
@@ -55,24 +51,36 @@
   }
 
   .signup{
+    box-shadow: 3px 5px 4px $dark3;
+    //inset 3px 0px 4px $dark1;
     border-right: 1px solid $dark1;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    background: url("../../images/blurry-gradient-haikei.svg") no-repeat;
-    background-size: cover;
+    background: $orange;
     display: flex;
     justify-content: space-between;
+    color: white;
+    .btn{
+      background: white;
+      color: $dark2;
+    }
   }
 
   .signin{
+    box-shadow: 4px 5px 4px $dark3;
     border-left: 1px solid $dark1;
     border-right: 1px solid $dark1;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    .btn{
+      background: $orange;
+      background-size: cover;
+    }
   }
 
   .btn{
-    border: transparent;
+    border: 1px solid $dark1;
+    border-radius: 5px;
     margin-top: 30px;
   }
 }
